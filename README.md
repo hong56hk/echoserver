@@ -12,6 +12,7 @@ To stop the server, you may press `Ctrl + C`
 ## Interface 
 
 *Settings*
+
 After the server starts, it prints below message then a series of questions will be asked
 ```
 Welcome to ELEC3120 programming assignment
@@ -47,12 +48,13 @@ If the client disconnects or leaves, below messages will be printed and the serv
 waiting for client to come...
 ```
 
-*gracefull left*
+*Gracefull disconnect*
 ```
 ('127.0.0.1', 50559) left
 waiting for client to come...
 ```
 *Exit*
+
 If the user enter `Ctrl + C`, the server will exit and below message will be printed
 ```
 waiting for client to come...
@@ -91,7 +93,8 @@ received: HeLlO WoRlD
 ```
 
 *Exit*
-The use can either exit by entering `bye` or press `Ctrl + c`
+
+The user can either exit by entering `bye` or press `Ctrl + c`
 ```
 > bye
 ```
