@@ -70,3 +70,28 @@ The server is based on python 3.9.1 to develop.
 To start the `python3 server.py`
 
 ## Interface
+
+*Start*
+```
+$ python3 client.py
+Welcome to ELEC3120 programming assignment
+Please select protocol to be used (tcp/udp): tcp
+Please enter server IP address, default 127.0.0.1: 
+Please enter server port, default 3120: 
+> 
+```
+
+The user has to select either TCP or UDP by entering `tcp` or `udp`.
+If the user does not enter host or port, default value will be used
+
+*Sending message*
+```
+> Hello World
+received: HeLlO WoRlD
+```
+
+*Exit*
+The use can either exit by entering `bye` or press `Ctrl + c`
+```
+> bye
+```
