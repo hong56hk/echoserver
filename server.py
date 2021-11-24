@@ -1,4 +1,6 @@
 import socket
+import signal
+import sys
 
 class Server:
   def __init__(self, protocol:str, host:str, port:int):
@@ -10,7 +12,6 @@ class Server:
     self.tcp_sock = None
     self.udp_sock = None
 
-    self.client_conn = {}
   
   ## -------------- process input from client and return the processed msg
   def process_msg(self, msg):
@@ -22,6 +23,11 @@ class Server:
       else:
         resp += c
     return resp
+
+  ## -------------- close
+  def close(self):
+    if self.tcp_sock:
+      self.tcp_sock.close()
 
   ## -------------- init server socket
   def start(self):
@@ -92,15 +98,22 @@ class Server:
   
 
 if __name__ == "__main__":
+  server = None
   protocol = None
   host = socket.gethostbyname(socket.gethostname())
   port = 3120
+
+  def signal_handler(sig, frame):
+    print("\nbye")
+    if server:
+      server.close()
+    sys.exit(0)
+  signal.signal(signal.SIGINT, signal_handler)  
 
   print("Welcome to ELEC3120 programming assignment")
   while True:
     protocol = input("Please select server protocol to be used (tcp/udp): ")
     if protocol == "tcp" or protocol == "udp":
-      print("using {}".format(protocol))
       break
     else:
       print("incorrect protocol selected")
@@ -109,8 +122,7 @@ if __name__ == "__main__":
   user_input = input("Please enter server listening ip default {}: ".format(host))
   if user_input != None and len(user_input) > 0:
     host = user_input
-  print("host {}".format(host))
-
+  
   while True:
     try:
       user_input = input("Please enter server listening port default {}: ".format(port))

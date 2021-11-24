@@ -1,4 +1,7 @@
 import socket
+import signal
+import sys
+
 
 class Client:
   def __init__(self):
@@ -17,9 +20,18 @@ class Client:
 
     if self.protocol == "tcp":
       self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      self.sock.connect((self.host, self.port))
+      self.sock.settimeout(10)
+      try:
+        self.sock.connect((self.host, self.port))
+      except Exception as e:
+        print("[error] {}".format(str(e)))
+        print("please ensure entering correct ip and port")
+        exit(0)
     elif self.protocol == "udp":
       self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+  def onCloseSignal(sig, frame):
+    print("asdadsasd")
 
   def close(self):
     self.running = False
@@ -48,7 +60,17 @@ class Client:
     # end of running loop
 
 
+
 if __name__ == "__main__":
+  client = None
+  def signal_handler(sig, frame):
+    print("\nbye")
+    if client:
+      client.close()
+    sys.exit(0)
+    
+  signal.signal(signal.SIGINT, signal_handler)  
+    
   protocol = None
   host = socket.gethostbyname(socket.gethostname())
   port = 3120
@@ -57,7 +79,6 @@ if __name__ == "__main__":
   while True:
     protocol = input("Please select protocol to be used (tcp/udp): ")
     if protocol == "tcp" or protocol == "udp":
-      print("using {}".format(protocol))
       break
     else:
       print("incorrect protocol selected")
@@ -65,8 +86,7 @@ if __name__ == "__main__":
   user_input = input("Please enter server IP address, default {}: ".format(host))
   if user_input != None and len(user_input) > 0:
     host = user_input
-  print("host {}".format(host))
-
+  
   while True:
     try:
       user_input = input("Please enter server port, default {}: ".format(port))
@@ -74,13 +94,17 @@ if __name__ == "__main__":
         break # use default
       elif user_input.isdigit():
         port = int(user_input)
-        print("using port {}:".format(port))
         break
       else:
         print("invalid port number")
     except Exception as e:
       print("incorrect port number")
+
   
   client = Client()
   client.initSocket(protocol, host, port)
   client.start()
+
+  
+
+
