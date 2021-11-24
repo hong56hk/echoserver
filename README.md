@@ -48,7 +48,7 @@ If the client disconnects or leaves, below messages will be printed and the serv
 waiting for client to come...
 ```
 
-*Gracefull disconnect*
+*Gracefully disconnect*
 ```
 ('127.0.0.1', 50559) left
 waiting for client to come...
