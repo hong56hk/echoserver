@@ -1,8 +1,34 @@
-# ELEC3120
-Programming assignmment
+# Echo server and Echo client, single client version
+The idea of the server and client is taken from ELEC3120 programming assignment.
+
+*Echo Server*
+In the first part of this assignment you are going to implement an echo server which receives text message from client and sends it back to the client. (That’s why we call it echo server) When the server receives the text message from client, it capitalizes the odd characters of the text message. For example, when the client sends a text message of “hello elec 3120 student”, the server should return a text message of “HeLlO ElEc 3120 StUdEnT”.
+Detailed requirements:
+1. Implement the server in both TCP and UDP and allow the user to choose which protocol to use atruntime.
+2. For TCP programming, your program should be a persistent server so that after transmitting each packet, the TCP
+connection should be kept alive.
+3. The server only needs to serve one client at a time (no multithreading).
+4. When the server receives a message from the client, print it out on the screen with the client’s IP address on the server
+side.
+5. After printing the message on the screen, the server capitalizes the odd characters of the message and sends the modified
+version back to the client.
+6. When a client disconnects, the server closes the socket and waits for the next client to connect.
+
+*Echo Client*
+In the second part of this assignment you are going to implement an echo client which connects and sends plain text messages to an echo server. Moreover, when it receives message from the echo server, it directly prints the message out on the screen.
+Detailed requirements:
+1. Implement the client in both TCP and UDP and allow the user to choose which protocol to use atruntime.
+2. For TCP programming, your program should be “persistent”, so that after each packet’s transmission, the TCP connection
+should be kept alive.
+3. The client only connects to one echo server at a time (no multithreading).
+4. Users input messages using the keyboard, and the client transmits messages to the connected server.
+5. When a message is received from the server, print it out on the screen on the client side.
+6. When a user types “bye”, the client program closes all connections and quits.
+7. Handle common errors in socket programming (e.g., assigned port being occupied by other programs, client resetting the
+connections).
 
 # Server
-## runtime
+## Runtime
 The server is based on python 3.9.1 to develop.
 
 ## Usage
@@ -65,7 +91,7 @@ bye
 
 # Client
 
-## runtime
+## Runtime
 The server is based on python 3.9.1 to develop.
 
 ## Usage
